@@ -6,17 +6,7 @@ A low-cost eye-tracking solution for controlling assistive devices to improve qu
 
 This system provides an accessible alternative to expensive eye-tracking devices by using a standard video camera for gaze detection and blink recognition. It enables direct control of a 5-DOF upper extremity powered rehabilitation exoskeleton through eye movements and blinking patterns. Can be adopted to be used without IR cameras usually used in eye-tracking systems.
 
-Read more about the system in:
-
-```bibtex
-@article{eye_gaze_exoskeleton_2024,
-  title={Low-Cost Eye-Gaze Tracking for Exoskeleton Control in Stroke Rehabilitation},
-  author={[Authors]},
-  journal={[Journal]},
-  year={2024},
-  note={Eye-tracking accuracy: 69.69\%}
-}
-```
+Read more about the system [here](https://doi.org/10.21203/rs.3.rs-6006333/v1)
 
 **Key Features:**
 - Low-cost video camera-based eye tracking
