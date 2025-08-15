@@ -4,9 +4,16 @@ A low-cost eye-tracking solution for controlling assistive devices to improve qu
 
 ## Overview
 
-This system provides an accessible alternative to expensive eye-tracking devices by using a standard video camera for gaze detection and blink recognition. It enables direct control of a 5-DOF upper extremity powered rehabilitation exoskeleton through eye movements and blinking patterns. Can be adopted to be used without IR cameras usually used in eye-tracking systems.
+This system provides an accessible alternative to expensive eye-tracking devices by using a standard video camera for gaze detection and blink recognition. It enables direct control of a 5-DOF upper extremity powered rehabilitation exoskeleton through eye movements and blinking patterns. Can be adopted to be used without IR cameras usually used in eye-tracking systems. Example usecases presented below:
+
+
+<img width="969" height="627" alt="usecase2" src="https://github.com/user-attachments/assets/ecf2a8b8-7383-4fa6-a1cb-6cc739d0c412" />
+<img width="969" height="627" alt="usecase4" src="https://github.com/user-attachments/assets/bc0b751d-4715-446b-9729-a6d17ce451fa" />
+
 
 Read more about the system [here](https://doi.org/10.21203/rs.3.rs-6006333/v1)
+
+
 
 **Key Features:**
 - Low-cost video camera-based eye tracking
