@@ -10,10 +10,7 @@ This system provides an accessible alternative to expensive eye-tracking devices
 <img width="969" height="627" alt="usecase2" src="https://github.com/user-attachments/assets/ecf2a8b8-7383-4fa6-a1cb-6cc739d0c412" />
 <img width="969" height="627" alt="usecase4" src="https://github.com/user-attachments/assets/bc0b751d-4715-446b-9729-a6d17ce451fa" />
 
-
 Read more about the system [here](https://doi.org/10.21203/rs.3.rs-6006333/v1)
-
-
 
 **Key Features:**
 - Low-cost video camera-based eye tracking
@@ -108,6 +105,10 @@ The system provides three GUI modes:
 - **Single Blink**: Highlight button (red border)
 - **Double Blink**: Execute action (green border)
 - **Gaze Direction**: Navigate between buttons
+
+GUI usage example photo:
+
+<img width="475" height="328" alt="Zrzut ekranu 2025-08-16 214724" src="https://github.com/user-attachments/assets/fefef06a-e676-4cfb-bba6-c977a255e73b" />
 
 ## Project Structure
 
