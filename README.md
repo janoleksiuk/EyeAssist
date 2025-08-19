@@ -76,7 +76,7 @@ The system guides users through a 5-point calibration:
 - **Right-up gaze point** 
 - **Right-down gaze point**
 - **Left-down gaze point**
-- **Mouth calibration** (for blink threshold)
+- **Blink calibration** (for blink threshold)
 
 Press `ESC` to advance through calibration stages.
 
@@ -84,13 +84,15 @@ Press `ESC` to advance through calibration stages.
 The system provides three GUI modes:
 
 #### GUI 1 - Angle Control
+- **Top-Center**: Neutral zone 
 - **Top-Left**: Increase current angle position
-- **Top-Right**: Decrease current angle position  
+- **Top-Right**: Decrease current angle position
 - **Bottom-Center**: Switch between angles (1, 2, 3)
 - **Bottom-Left**: Switch to GUI 2
 - **Bottom-Right**: Stop movement
 
 #### GUI 2 - Velocity Control
+- **Top-Center**: Neutral zone 
 - **Top-Left**: Increase velocity (10% increments)
 - **Top-Right**: Decrease velocity (10% decrements)
 - **Bottom-Left**: Switch to GUI 1
@@ -98,6 +100,7 @@ The system provides three GUI modes:
 - **Bottom-Right**: Stop movement
 
 #### GUI 3 - Additional Functions
+- **Top-Center**: Neutral zone 
 - **Bottom-Left**: Return to GUI 1
 - **Bottom-Right**: Stop movement
 
