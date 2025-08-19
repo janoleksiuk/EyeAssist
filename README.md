@@ -52,12 +52,7 @@ pip install opencv-python numpy dlib
    - Download `shape_predictor_68_face_landmarks.dat` from dlib's official repository
    - Place it in the `model/` directory
 
-4. **Create necessary directories:**
-```bash
-mkdir -p utils model logs config
-```
-
-5. **Add calibration images:**
+4. **Add calibration images:**
    - Place GUI images (`gui1.png`, `gui2.png`, `gui3.png`) in `utils/`
    - Place calibration images (`centerline.png`, `pre1.png`, `1.png`, etc.) in `utils/`
 
