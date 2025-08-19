@@ -1,4 +1,8 @@
-# Eye-Gaze-Based Human-Machine Interface Framework
+# EyeAssist 
+
+Eye-Gaze-Based Human-Machine Interface Framework
+
+---
 
 A low-cost eye-tracking solution for controlling assistive devices to improve quality of life and independence of individuals with impaired mobility. This HMI framework can be easily adopted to a wide variety of assistive devices - examples of use cases presented below (assistive, powered wheelchair, smart-home).
 
