@@ -9,6 +9,7 @@ from face_tracker.gaze_analyzer import GazeAnalyzer
 from face_tracker.calibration import CalibrationData
 from utils.data_processing import moving_average, rearrange_circular_buffer
 from config.config import LEFT_EYE_POINTS, RIGHT_EYE_POINTS, MOUTH_POINTS, MOVING_AVERAGE_WINDOW
+from memory_sharing import MemoryShare
 
 
 class EyeTrackingSystem:
@@ -19,6 +20,9 @@ class EyeTrackingSystem:
         self.eye_tracker = EyeTracker()
         self.calibration_data = CalibrationData.load_from_file()
         self.gaze_analyzer = GazeAnalyzer(self.calibration_data)
+
+        # Initialize shared memory
+        self.memory = MemoryShare()
         
         # Initialize filtering buffers
         self.side_buffer: List[float] = [0.0] * MOVING_AVERAGE_WINDOW
@@ -83,6 +87,55 @@ class EyeTrackingSystem:
         
         return results
     
+    def map_gaze_to_buttons(self, results):
+        """Map eye tracking results to button controller flags"""
+        if not results or not results.get('face_detected', False):
+            # No face detected, don't change flags
+            return
+        
+        # Extract flags from eye tracking results
+        left_flag = results.get('left_flag', False)
+        right_flag = results.get('right_flag', False)
+        center_flag = results.get('center_flag', False)
+        top_flag = results.get('top_flag', False)
+        bot_flag = results.get('bot_flag', False)
+        mouth_open = results.get('mouth_open', False)
+        
+        # Determine which colorFlag should be active based on gaze position
+        target_button = None
+        
+        if left_flag and top_flag:
+            target_button = 0  # temp_up
+        elif center_flag and top_flag:
+            # Do nothing - no button mapping
+            pass
+        elif right_flag and top_flag:
+            target_button = 2  # temp_down
+        elif left_flag and bot_flag:
+            target_button = 3  # cooling
+        elif center_flag and bot_flag:
+            target_button = 4  # fan
+        elif right_flag and bot_flag:
+            target_button = 5  # off
+        
+        # Update colorFlags in shared memory
+        if target_button is not None:
+            # Set the target button's colorFlag to True (automatically sets others to False)
+            self.memory.update_color_flag(target_button, True)
+        else:
+            # No valid gaze position, clear all colorFlags
+            data = self.memory.read_memory()
+            if any(data['color_flags']):
+                for i in range(6):
+                    if data['color_flags'][i]:
+                        self.memory.update_color_flag(i, False)
+                        break
+        
+        # Update secondFlag based on mouth state
+        current_data = self.memory.read_memory()
+        if mouth_open != current_data['second_flag']:
+            self.memory.update_second_flag(mouth_open)
+    
     def run(self):
         """Run the main tracking loop."""
         cap = cv2.VideoCapture(0)
@@ -95,6 +148,8 @@ class EyeTrackingSystem:
                 
                 start_time = time.time()
                 results = self.process_frame(frame)
+
+                self.map_gaze_to_buttons(results)
                 
                 if results:
                     # Here you can add your application logic
