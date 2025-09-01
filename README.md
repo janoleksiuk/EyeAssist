@@ -1,136 +1,83 @@
 # EyeAssist 
 
-Eye-Gaze-Based Human-Machine Interface Framework
-
----
-
-A low-cost eye-tracking solution for controlling assistive devices to improve quality of life and independence of individuals with impaired mobility. This HMI framework can be easily adopted to a wide variety of assistive devices - examples of use cases presented below (assistive, powered wheelchair, smart-home).
+**Human-Machine Interface based on eye gaze and mouth motion tracking.**
 
 ## Overview
 
-This system provides an accessible alternative to expensive eye-tracking devices by using a standard video camera for gaze detection and blink recognition. It enables direct control of a 5-DOF upper extremity powered rehabilitation exoskeleton through eye movements and blinking patterns. Can be adopted to be used without IR cameras usually used in eye-tracking systems. Example usecases presented below:
-
-
-<img width="969" height="627" alt="usecase2" src="https://github.com/user-attachments/assets/ecf2a8b8-7383-4fa6-a1cb-6cc739d0c412" />
-<img width="969" height="627" alt="usecase4" src="https://github.com/user-attachments/assets/bc0b751d-4715-446b-9729-a6d17ce451fa" />
-
-Read more about the system [here](https://doi.org/10.21203/rs.3.rs-6006333/v1)
+A low-cost face-tracking solution for controlling assistive devices to **improve quality of life and independence of individuals with impaired mobility** who are not able to operate with typical control interfaces based on buttons and joysticks. This system provides an accessible alternative to expensive eye-tracking devices by using a standard video camera for gaze detection and mouth motion recognition. It enables direct control of any adopted GUI that consist of 6 buttons per panel. Does not require IR cameras usually used in eye-tracking systems. This HMI framework can be easily adopted to a wide variety of assistive devices - examples of use cases presented below (assistive systems, smart-home, robots etc.). Read more about the system utilisation to control rehabilitation robot [here](https://doi.org/10.21203/rs.3.rs-6006333/v1).
 
 **Key Features:**
-- Low-cost video camera-based eye tracking
-- Real-time gaze detection and blink recognition
-- Intuitive GUI for rehabilitation robot control
+- Real-time eye-tracking and mouth motion recognition based on dlib `shape_predictor_68_face_landmarks` [model](https://github.com/davisking/dlib).
+- Intuitive GUI (included example interactive AC GUI panel)
 - Calibration system for individual user adaptation
 
-## System Requirements
 
-### Hardware
-- Standard USB camera (webcam)
-- Computer with sufficient processing power for real-time video processing
+## Usecase
 
-### Software
-- Python 3.7+
-- OpenCV 
-- NumPy
-- dlib
-- Windows OS (for `winsound` module)
-(see requirements.txt)
+User is located in front of the screen which is displaying the GUI of a given system. The system allows them to select the appropriate virtual button using their gaze, while its activation is triggered by opening the mouth. The example usecases are presented below:
 
-### Models
-- dlib's 68-point facial landmark predictor model (`shape_predictor_68_face_landmarks.dat`)
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/bc0b751d-4715-446b-9729-a6d17ce451fa" width="45.5%" />
+  <img src="https://github.com/user-attachments/assets/fefef06a-e676-4cfb-bba6-c977a255e73b" width="40.3%" />
+</p>
 
 ## Installation
 
 1. **Clone the repository:**
 ```bash
-git clone https://github.com/your-repo/eye-gaze-exoskeleton
-cd eye-assist
+git clone https://github.com/janoleskiuk/EyeAssist.git
+cd EyeAssist
 ```
 
 2. **Install required packages:**
 ```bash
-pip install opencv-python numpy dlib
+python -m pip install -r requirements.txt
 ```
 
-3. **Download the dlib model:**
-   - Download `shape_predictor_68_face_landmarks.dat` from dlib's official repository
-   - Place it in the `model/` directory
-
-4. **Add calibration images:**
-   - Place GUI images (`gui1.png`, `gui2.png`, `gui3.png`) in `utils/`
-   - Place calibration images (`centerline.png`, `pre1.png`, `1.png`, etc.) in `utils/`
+3. **Install `dlib` package:**
+```bash
+cd dlib
+python -m pip install dlib-19.24.99-cp312-cp312-win_amd64.whl
+```
+**Note**: This .whl file is compatibile with python version 3.12. If you are using other python version download suitable .whl file from this [repository](https://github.com/z-mahmud22/Dlib_Windows_Python3.x).
 
 ## Usage
 
-### 1. Run the Complete System
+1. **Launch calibration**
 ```bash
-python main.py
+python main_calibration.py
 ```
-This will first run the calibration process, then start the main eye-tracking application.
 
-### 2. Calibration Process
-The system guides users through a 5-point calibration:
-- **Centerline alignment**
-- **Left-up gaze point**
-- **Right-up gaze point** 
-- **Right-down gaze point**
-- **Left-down gaze point**
-- **Blink calibration** (for blink threshold)
+2. **Launch face tracker**
 
-Press `ESC` to advance through calibration stages.
+After succesful calibration run:
+```bash
+python main_tracker.py
+```
 
-### 3. Control Interface
-The system provides three GUI modes:
+3. **Launch GUI**
 
-#### GUI 1 - Angle Control
-- **Top-Center**: Neutral zone 
-- **Top-Left**: Increase current angle position
-- **Top-Right**: Decrease current angle position
-- **Bottom-Center**: Switch between angles (1, 2, 3)
-- **Bottom-Left**: Switch to GUI 2
-- **Bottom-Right**: Stop movement
-
-#### GUI 2 - Velocity Control
-- **Top-Center**: Neutral zone 
-- **Top-Left**: Increase velocity (10% increments)
-- **Top-Right**: Decrease velocity (10% decrements)
-- **Bottom-Left**: Switch to GUI 1
-- **Bottom-Center**: Switch to GUI 3
-- **Bottom-Right**: Stop movement
-
-#### GUI 3 - Additional Functions
-- **Top-Center**: Neutral zone 
-- **Bottom-Left**: Return to GUI 1
-- **Bottom-Right**: Stop movement
-
-### 4. Interaction Method
-- **Single Blink**: Highlight button (red border)
-- **Double Blink**: Execute action (green border)
-- **Gaze Direction**: Navigate between buttons
-
-GUI usage example photo:
-
-<img width="475" height="328" alt="Zrzut ekranu 2025-08-16 214724" src="https://github.com/user-attachments/assets/fefef06a-e676-4cfb-bba6-c977a255e73b" />
+Open another terminal and run:
+```bash
+python main_GUI.py
+```
 
 ## Project Structure
-
 ```
-eye-gaze-exoskeleton/
-├── main.py      # Main application entry point
-├── eye_detection.py         # Eye detection and gaze tracking
-├── calibration.py          # Calibration system
-├── gui_controller.py       # GUI management and interactions
-├── model/
-│   └── shape_predictor_68_face_landmarks.dat
-├── utils/
-│   ├── gui1.png           # GUI interface images
-│   ├── gui2.png
-│   ├── gui3.png
-|   ├── utils.py               # Utility classes and functions
-│   ├── centerline.png     # Calibration images
-│   ├── pre1.png - pre5.png
-│   ├── 1.png - 5.png
-│   └── geo_calib.txt      # Calibration data (generated)
+src/
+├── config/                 # Configuration files of the system
+├── data/                   # Data exchanged by system modules
+├── dlib/                   # dlib .whl file
+├── face_tracker/           # Modules responsible for face tracking
+├── gui/                    # GUI modules
+├── models/                 # dlib 68-point facial recognition model
+├── utils/                  # Utilities
+├── main_calibration.py     # Calibration program
+├── main_GUI.py             # GUI program
+├── main_tracker.py         # Face tracker program
 ```
 
-**Note**: This system is intended for research and rehabilitation purposes. Always ensure proper supervision and safety protocols when used with actual exoskeleton hardware.
+---
+
+
+**Note**: This system is intended for research and education purposes. Always ensure proper supervision and safety protocols when used with actual hardware.
