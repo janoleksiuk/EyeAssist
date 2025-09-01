@@ -3,6 +3,7 @@
 import cv2
 import time
 import winsound
+import json
 from typing import Dict, Any
 from config.config import *
 
@@ -19,23 +20,31 @@ class CalibrationData:
         self.mouth = 0.0    # mouth ratio
     
     def save_to_file(self, filename: str = CALIBRATION_FILE):
-        """Save calibration data to file."""
+        """Save calibration data to file in JSON format."""
+        data = {
+            "lu_side": self.lu_side,
+            "ru_side": self.ru_side,
+            "ld_side": self.ld_side,
+            "rd_side": self.rd_side,
+            "tb": self.tb,
+            "mouth": self.mouth,
+        }
         with open(filename, "w") as f:
-            f.write(f"{self.lu_side},{self.ru_side},{self.ld_side},{self.rd_side},{self.tb},{self.mouth}")
+            json.dump(data, f, indent=4)
     
     @classmethod
     def load_from_file(cls, filename: str = CALIBRATION_FILE) -> 'CalibrationData':
-        """Load calibration data from file."""
+        """Load calibration data from JSON file."""
+        with open(filename, "r") as f:
+            params = json.load(f)
+
         data = cls()
-        with open(filename, 'r') as f:
-            line = f.readline().strip()
-            params = line.split(",")
-            data.lu_side = float(params[0])
-            data.ru_side = float(params[1])
-            data.ld_side = float(params[2])
-            data.rd_side = float(params[3])
-            data.tb = float(params[4])
-            data.mouth = float(params[5])
+        data.lu_side = float(params.get("lu_side", 0.0))
+        data.ru_side = float(params.get("ru_side", 0.0))
+        data.ld_side = float(params.get("ld_side", 0.0))
+        data.rd_side = float(params.get("rd_side", 0.0))
+        data.tb = float(params.get("tb", 0.0))
+        data.mouth = float(params.get("mouth", 0.0))
         return data
 
 

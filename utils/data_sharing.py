@@ -7,9 +7,10 @@ import json
 import os
 import time
 from threading import Lock
+from config.config import DATA_SHARE_FILE
 
-class MemoryShare:
-    def __init__(self, memory_file="shared_memory.json"):
+class DataShare:
+    def __init__(self, memory_file=DATA_SHARE_FILE):
         self.memory_file = memory_file
         self.lock = Lock()
         

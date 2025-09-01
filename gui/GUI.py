@@ -1,5 +1,5 @@
 import tkinter as tk
-from memory_sharing import MemoryShare
+from utils.data_sharing import DataShare
 
 class GUI:
     def __init__(self, root):
@@ -13,8 +13,8 @@ class GUI:
         self.root.state('zoomed')  # For Windows
         self.root.bind('<Escape>', self.toggle_fullscreen)
         
-        # Initialize shared memory
-        self.memory = MemoryShare()
+        # Initialize shared data
+        self.data = DataShare()
         
         # Adjustable variables (initialize before creating buttons)
         self.current_temp = 27
@@ -115,7 +115,7 @@ class GUI:
     def update_buttons(self):
         """Update button appearances based on shared memory flags"""
         button_names = ['temp_up', 'neutral', 'temp_down', 'cooling', 'fan', 'off']
-        data = self.memory.read_memory()
+        data = self.data.read_memory()
         
         for i, btn_name in enumerate(button_names):
             if btn_name in self.buttons:
@@ -140,7 +140,7 @@ class GUI:
                 btn.configure(bg=current_bg)
                 
                 # Check if this button should be clicked
-                buttons_to_click = self.memory.get_buttons_to_click()
+                buttons_to_click = self.data.get_buttons_to_click()
                 if i in buttons_to_click:
                     btn.configure(relief='sunken')
                     # Simulate click action
@@ -175,7 +175,7 @@ class GUI:
         
         if button_name == 'off':
             print("OFF button clicked - Terminating program")
-            self.memory.cleanup()
+            self.data.cleanup()
             self.root.quit()
             self.root.destroy()
         elif button_name == 'temp_up':

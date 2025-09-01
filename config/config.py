@@ -12,7 +12,8 @@ MOUTH_THRESHOLD_MULTIPLIER = 0.8
 
 # File paths
 SHAPE_PREDICTOR_PATH = "model/shape_predictor_68_face_landmarks.dat"
-CALIBRATION_FILE = "utils/geo_calib.txt"
+CALIBRATION_FILE = "data/calib_data.json"
+DATA_SHARE_FILE = "data/shared_data.json"
 
 # Image paths
 CALIBRATION_IMAGES = {

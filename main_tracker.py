@@ -9,7 +9,7 @@ from face_tracker.gaze_analyzer import GazeAnalyzer
 from face_tracker.calibration import CalibrationData
 from utils.data_processing import moving_average, rearrange_circular_buffer
 from config.config import LEFT_EYE_POINTS, RIGHT_EYE_POINTS, MOUTH_POINTS, MOVING_AVERAGE_WINDOW
-from memory_sharing import MemoryShare
+from utils.data_sharing import DataShare
 
 
 class EyeTrackingSystem:
@@ -21,8 +21,8 @@ class EyeTrackingSystem:
         self.calibration_data = CalibrationData.load_from_file()
         self.gaze_analyzer = GazeAnalyzer(self.calibration_data)
 
-        # Initialize shared memory
-        self.memory = MemoryShare()
+        # Initialize shared data
+        self.data = DataShare()
         
         # Initialize filtering buffers
         self.side_buffer: List[float] = [0.0] * MOVING_AVERAGE_WINDOW
@@ -118,23 +118,23 @@ class EyeTrackingSystem:
         elif right_flag and bot_flag:
             target_button = 5  # off
         
-        # Update colorFlags in shared memory
+        # Update colorFlags in shared data
         if target_button is not None:
             # Set the target button's colorFlag to True (automatically sets others to False)
-            self.memory.update_color_flag(target_button, True)
+            self.data.update_color_flag(target_button, True)
         else:
             # No valid gaze position, clear all colorFlags
-            data = self.memory.read_memory()
+            data = self.data.read_memory()
             if any(data['color_flags']):
                 for i in range(6):
                     if data['color_flags'][i]:
-                        self.memory.update_color_flag(i, False)
+                        self.data.update_color_flag(i, False)
                         break
         
         # Update secondFlag based on mouth state
-        current_data = self.memory.read_memory()
+        current_data = self.data.read_memory()
         if mouth_open != current_data['second_flag']:
-            self.memory.update_second_flag(mouth_open)
+            self.data.update_second_flag(mouth_open)
     
     def run(self):
         """Run the main tracking loop."""

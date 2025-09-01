@@ -5,12 +5,12 @@ Keyboard Controller - Handles keyboard input and updates shared memory
 
 import tkinter as tk
 import time
-from memory_sharing import MemoryShare
+from utils.data_sharing import DataShare
 
 class KeyboardController:
     def __init__(self):
         """Initialize keyboard controller with shared memory"""
-        self.memory = MemoryShare()
+        self.memory = DataShare()
         
         # Create invisible window for keyboard capture
         self.root = tk.Tk()
