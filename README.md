@@ -17,8 +17,8 @@ A low-cost face-tracking solution for controlling assistive devices to **improve
 User is located in front of the screen which is displaying the GUI of a given system. The system allows them to select the appropriate virtual button using their gaze, while its activation is triggered by opening the mouth. The example usecases are presented below:
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/bc0b751d-4715-446b-9729-a6d17ce451fa" width="45.5%" />
-  <img src="https://github.com/user-attachments/assets/fefef06a-e676-4cfb-bba6-c977a255e73b" width="40.3%" />
+  <img src="https://github.com/user-attachments/assets/bc0b751d-4715-446b-9729-a6d17ce451fa" width="50%" />
+  <img src="https://github.com/user-attachments/assets/fefef06a-e676-4cfb-bba6-c977a255e73b" width="44.3%" />
 </p>
 
 ## Installation
