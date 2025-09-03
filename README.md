@@ -1,6 +1,9 @@
 # EyeAssist 
 
+
 **Human-Machine Interface based on eye gaze and mouth motion tracking.**
+
+---
 
 ## Overview
 
