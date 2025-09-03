@@ -12,7 +12,7 @@ A low-cost face-tracking solution for controlling assistive devices to **improve
 - Calibration system for individual user adaptation
 
 
-## Usecase
+## Use case
 
 User is located in front of the screen which is displaying the GUI of a given system. The system allows them to select the appropriate virtual button using their gaze, while its activation is triggered by opening the mouth. The example usecases are presented below:
 
